@@ -1,0 +1,30 @@
+group:
+    pattern:  /
+    defaults: { _controller: "FootballbetBundle:Group:index" }
+
+group_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "FootballbetBundle:Group:show" }
+
+group_new:
+    pattern:  /new
+    defaults: { _controller: "FootballbetBundle:Group:new" }
+
+group_create:
+    pattern:  /create
+    defaults: { _controller: "FootballbetBundle:Group:create" }
+    requirements: { _method: post }
+
+group_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "FootballbetBundle:Group:edit" }
+
+group_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "FootballbetBundle:Group:update" }
+    requirements: { _method: post|put }
+
+group_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "FootballbetBundle:Group:delete" }
+    requirements: { _method: post|delete }

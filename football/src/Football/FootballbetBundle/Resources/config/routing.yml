@@ -1,0 +1,79 @@
+home:
+    path: /
+    defaults: { _controller: FootballbetBundle:Default:index }
+
+clasification:
+  pattern: /clasification
+  defaults: {_controller:FootballbetBundle:Clasification:index}
+
+FootballbetBundle_user:
+    resource: "@FootballbetBundle/Resources/config/routing/user.yml"
+    prefix:   /user
+
+FootballbetBundle_nomenclador:
+    resource: "@FootballbetBundle/Resources/config/routing/nomenclador.yml"
+    prefix:   /nomenclador
+
+FootballbetBundle_games:
+    resource: "@FootballbetBundle/Resources/config/routing/games.yml"
+    prefix:   /games
+
+FootballbetBundle_team:
+        resource: "@FootballbetBundle/Resources/config/routing/team.yml"
+        prefix:   /team
+
+FootballbetBundle_league:
+        resource: "@FootballbetBundle/Resources/config/routing/league.yml"
+        prefix:   /league
+
+FootballbetBundle_group:
+        resource: "@FootballbetBundle/Resources/config/routing/group.yml"
+        prefix:   /group
+
+FootballbetBundle_grupo:
+    resource: "@FootballbetBundle/Resources/config/routing/grupo.yml"
+    prefix:   /grupo
+
+FootballbetBundle_season:
+        resource: "@FootballbetBundle/Resources/config/routing/season.yml"
+        prefix:   /season
+
+FootballbetBundle_security:
+    resource: "@FootballbetBundle/Resources/config/routing/security.yml"
+    prefix:   /user
+
+FootballbetBundle_bet:
+    resource: "@FootballbetBundle/Resources/config/routing/bet.yml"
+    prefix:   /bet
+
+results:
+  pattern: /results
+  defaults: {_controller:FootballbetBundle:Results:index}
+
+update_results:
+  pattern: /update_results
+  defaults: {_controller:FootballbetBundle:Result:updateResult}
+
+login_register:
+  pattern: /login_register
+  defaults: {_controller:FootballbetBundle:User:login_register}
+
+forgot_password:
+  pattern: /forgot_password
+  defaults: {_controller:FootballbetBundle:User:forgot_password}
+
+forgotpassword_cambiarpass:
+  pattern: /cambiarpass
+  defaults: {_controller:FootballbetBundle:User:cambiarpass}
+
+admin_begin:
+  pattern: /admin_begin
+  defaults: {_controller:FootballbetBundle:Default:admin_begin}
+
+FootballbetBundle_publicity:
+    resource: "@FootballbetBundle/Resources/config/routing/publicity.yml"
+    prefix:   /publicity
+
+FootballbetBundle_usergrupo:
+    resource: "@FootballbetBundle/Resources/config/routing/usergrupo.yml"
+    prefix:   /usergrupo

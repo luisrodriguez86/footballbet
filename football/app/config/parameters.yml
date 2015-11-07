@@ -1,0 +1,17 @@
+parameters:
+    database_driver: pdo_mysql
+    database_host: mysql1002.mochahost.com
+    database_port: null
+    database_name: dsielab_football
+    database_user: dsielab_develop
+    database_password: dsielab_develop2015
+    mailer_transport: smtp
+    mailer_encryption: ssl
+    mailer_auth_mode: login
+    mailer_host: smtp.gmail.com
+    mailer_user: last.aldeano@gmail.com
+    mailer_password: cristina11051866618
+    mailer_port: 465
+    locale: en
+    secret: 9d93a9a41f691a0e663e19373ebcbede33f8bdd6
+    database_path: null

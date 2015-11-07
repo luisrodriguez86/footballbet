@@ -1,0 +1,30 @@
+nomenclador:
+    pattern:  /
+    defaults: { _controller: "FootballbetBundle:Nomenclador:index" }
+
+nomenclador_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "FootballbetBundle:Nomenclador:show" }
+
+nomenclador_new:
+    pattern:  /new
+    defaults: { _controller: "FootballbetBundle:Nomenclador:new" }
+
+nomenclador_create:
+    pattern:  /create
+    defaults: { _controller: "FootballbetBundle:Nomenclador:create" }
+    requirements: { _method: post }
+
+nomenclador_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "FootballbetBundle:Nomenclador:edit" }
+
+nomenclador_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "FootballbetBundle:Nomenclador:update" }
+    requirements: { _method: post|put }
+
+nomenclador_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "FootballbetBundle:Nomenclador:delete" }
+    requirements: { _method: post|delete }

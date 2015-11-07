@@ -1,0 +1,16 @@
+parameters:
+    database_driver: pdo_mysql
+    database_host: mysql1002.mochahost.com
+    database_port: null
+    database_name: dsielab_football
+    database_user: dsielab_develop
+    database_password: dsielab_develop2015
+    mailer_transport: smtp
+    mailer_host: mail.dsielab.com
+    mailer_user: anunciosxmovil@dsielab.com
+    mailer_password: ajjo*.dsielabansxphone
+    mailer_port: 25
+    mailer_encryption: tls
+    locale: en
+    secret: 9d93a9a41f691a0e663e19373ebcbede33f8bdd6
+    database_path: null

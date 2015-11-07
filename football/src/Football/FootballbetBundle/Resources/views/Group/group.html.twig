@@ -1,0 +1,87 @@
+{% extends 'FootballbetBundle::layout.html.twig' %}
+
+{% block title %}
+    - Bienvenidos al Sitio de ...
+{% endblock %}
+
+{% block content %}
+    <div class="row form-group">
+        <div class="container container-menu">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#home" data-toggle="tab">My Friends</a></li>
+                <li><a href="#profile" data-toggle="tab">My other friends</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content" style="padding-top: 25px">
+                <div class="tab-pane active" id="home">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="web-links-header">
+                                <h4 class="text-center">CLASIFICACION</h4>
+                            </div>
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    pepe
+                                </li>
+                                <li class="list-group-item">
+                                    pepe
+                                </li>
+                                <li class="list-group-item">
+                                    pepe
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="tab-pane" id="profile">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="web-links-header">
+                                        <h4 class="text-center">PARTIDOS DE LA SEMANA</h4>
+                                    </div>
+                                    <ul class="list-group">
+                                        <li class="list-group-item">
+                                            Real Madrid - Atletico
+                                            <span class="pull-right" style="margin-top: -5px">
+                                                <a href="" class="btn btn-success btn-sm">Win Local</a>
+                                                <a href="" class="btn btn-warning btn-sm">DRAFT</a>
+                                                <a href="" class="btn btn-danger btn-sm">Win Visit</a>
+                                            </span>
+                                        </li>
+                                        <li class="list-group-item">
+                                            Barcelona - Real Madrid
+                                            <span class="pull-right" style="margin-top: -5px">
+                                                <a href="" class="btn btn-success btn-sm">Win Local</a>
+                                                <a href="" class="btn btn-warning btn-sm">DRAFT</a>
+                                                <a href="" class="btn btn-danger btn-sm">Win Visit</a>
+                                            </span>
+                                        </li>
+                                        <li class="list-group-item">
+                                            Sevilla - Arsenal
+                                            <span class="pull-right" style="margin-top: -5px">
+                                                <a href="" class="btn btn-success btn-sm">Win Local</a>
+                                                <a href="" class="btn btn-warning btn-sm">DRAFT</a>
+                                                <a href="" class="btn btn-danger btn-sm">Win Visit</a>
+                                            </span>
+                                        </li>
+                                    </ul>
+                                    <div class="col-md-6">
+                                        <div class="btn-group btn-group-justified">
+                                            <a href="" class="btn btn-success btn-lg">BET</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

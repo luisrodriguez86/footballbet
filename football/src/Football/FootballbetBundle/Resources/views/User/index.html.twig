@@ -1,0 +1,89 @@
+{% extends 'FootballbetBundle::layout_admin.html.twig' %}
+{% block title %}
+    - Bienvenidos al Sitio de ...
+{% endblock %}
+
+{% block content %}
+    <div class="page-content">
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="portlet">
+                    <div class="portlet-title">
+                        <div class="caption"><h3>Listado de Usuarios</h3></div>
+                    </div>
+                    <div class="form-group">
+                        <a class="btn btn-link pull-right" href="{{ path('admin_begin') }}"><i class="icon-remove"></i> Cancelar</a>
+                        <a class="btn btn-link pull-right" href="{{ path('user_new') }}"><i class="icon-plus"></i> Nuevo</a>
+                    </div>
+                    <form class="row form-inline" action="#">
+                        <div class="form-group ">
+                            <div class="col-lg-5">
+                                <label style="margin-top: 6px;" class="control-label col-md-3">Email</label>
+                                <div class="col-md-9">
+                                    <input type="text" placeholder="Dirección de email" class="form-control" id="email">
+                                    <span class="help-block">Entre una dirección de email.</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-5">
+                                <label style="margin-top: 6px;" class="control-label col-md-3">Nombre</label>
+
+                                <div class="col-md-9">
+                                    <input type="text" placeholder="Nombre" class="form-control" id="nombre">
+                                    <span class="help-block">Entre un nombre.</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="col-lg-6">
+                                    <button class="btn btn-info" id="btnSubmit" type="button">Filtrar</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="portlet-body">
+                        <div class="table-responsive" id="tablaContainer">
+                            {% include 'FootballbetBundle:User:tableUsers.html.twig' with {'pagination':pagination} %}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="application/javascript">
+        $(function () {
+
+            $("#btnSubmit").click(function(e){
+
+                $("#tablaContainer").html('<div style="text-align: center; margin-top: 40px"><img   src="{{ asset("bundles/footballbet/img/ajax-loading.gif")}}" width="52px"></div>');
+
+                    var url = "{{ path('filtro_user') }}";
+
+                var datos = {
+                    "nombre": $("#nombre").val(),
+                    "email": $("#email").val()
+                };
+
+                $.post(url, datos, function (data) {
+                    $("#tablaContainer").html(data);
+                });
+
+            });
+
+            $("#email , #nombre").keydown(function(e){
+
+                if( e.which == 13 )
+
+                    $("#btnSubmit").click();
+            });
+
+        });
+    </script>
+{% endblock %}
+
+

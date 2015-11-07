@@ -1,0 +1,51 @@
+{% extends 'FootballbetBundle::layout_admin.html.twig' %}
+
+{% block content -%}
+    <div class="page-content">
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Detalles de la Publicidad</h3>
+                <div class="form-inline pull-right form-group">
+                    <div class="form-group">
+                        <a href="{{ path('publicity_edit', { 'id': entity.id }) }}" class="btn btn-link">
+                            <i class="icon-pencil"></i> Editar
+                        </a>
+                    </div>
+                    <div class="form-group">
+                        <a href="{{ path('publicity') }}" class="btn btn-link">
+                            <i class="icon-list"></i> Volver al listado
+                        </a>
+                    </div>
+
+                    <div class="form-group">{{ form(delete_form) }}</div>
+                </div>
+                <table class="table table-striped">
+                    <tbody>
+
+                    <tr>
+                        <th>Nombre</th>
+                        <td>{{ entity.name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Foto</th>
+                        <td><img src="{{ asset('bundles/footballbet/slider-elastic/') }}{{ entity.photo }}" alt="{{ entity.photo }}" width="150" height="80" /></td>
+                    </tr>
+                    <tr>
+                        <th>Fecha P.</th>
+                        <td>{{ entity.date|date('Y-m-d') }}</td>
+                    </tr>
+                    <tr>
+                        <th>Fecha E.</th>
+                        <td>{{ entity.expiredate|date('Y-m-d') }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+{% endblock %}

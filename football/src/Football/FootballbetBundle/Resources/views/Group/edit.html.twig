@@ -1,0 +1,40 @@
+{% extends 'FootballbetBundle::layout_admin.html.twig' %}
+
+{% block content -%}
+    <div class="page-content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="portlet">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <h3>Editar Roll</h3>
+                        </div>
+                        <div class="tools">
+                            <a class="collapse" href=""></a>
+                            <a class="config" data-toggle="modal" href="#portlet-config"></a>
+                            <a class="reload" href=""></a>
+                            <a class="remove" href=""></a>
+                        </div>
+                    </div>
+                    <div class="portlet-body form">
+                        <div class="container">
+                            {{ form(edit_form) }}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-actions">
+            <div  class="form-inline">
+                <div class="form-group">
+                    <a href="{{ path('group') }}" class="btn btn-link">
+                        <i class="icon-list"></i> Volver al listado
+                    </a>
+                </div>
+                <div class="form-group">{{ form(delete_form) }}</div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

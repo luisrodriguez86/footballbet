@@ -1,0 +1,84 @@
+{% extends 'FootballbetBundle::layout_admin.html.twig' %}
+{% block title %}
+    - Bienvenidos al Sitio de ...
+{% endblock %}
+
+{% block content %}
+    <div class="page-content">
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="portlet">
+                    <div class="portlet-title">
+                        <div class="caption"><h3>Listado de Apuestas</h3></div>
+                    </div>
+                    <form class="row form-inline" action="#">
+                        <div class="form-group row col-lg-5">
+                            <div class="col-lg-11">
+                                <div><label style="margin-top: 6px;" class="control-label col-md-2">Grupo</label></div>
+                                <div class="col-md-10">
+                                    <select class="form-control" id="idGrupo">
+                                        <option value="">Todas</option>
+                                        {% for grupo in grupos %}
+                                            <option value={{ grupo.id }}>{{ grupo.nombre }}</option>
+                                        {% endfor %}
+                                    </select>
+
+                                    <span class="help-block">Seleccione un grupo.</span>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-1">
+                                <div class="col-lg-2">
+                                    <button class="btn btn-info" id="btnSubmit" type="button">Filtrar</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="portlet-body">
+                        <div class="table-responsive" id="tablaContainer">
+                            {% include 'FootballbetBundle:Bet:admin_table.html.twig' with {'pagination':pagination} %}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="application/javascript">
+        $(function () {
+
+            $("#btnSubmit").click(function(e){
+
+                $("#tablaContainer").html('<div style="text-align: center; margin-top: 40px"><img   src="{{ asset("bundles/footballbet/img/ajax-loading.gif")}}" width="52px"></div>');
+
+                var url = "{{ path('filtro_bet') }}";
+
+                var datos = {
+                    "idGrupo": $("#idGrupo").val()
+
+                };
+
+                $.post(url, datos, function (data) {
+                    $("#tablaContainer").html(data);
+                });
+
+            });
+
+            $("#email , #nombre").keydown(function(e){
+
+                if( e.which == 13 )
+
+                    $("#btnSubmit").click();
+            });
+
+        });
+    </script>
+{% endblock %}
+
+

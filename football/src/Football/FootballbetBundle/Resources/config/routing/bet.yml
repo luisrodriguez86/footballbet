@@ -1,0 +1,42 @@
+bet:
+    pattern:  /
+    defaults: { _controller: "FootballbetBundle:Bet:index" }
+
+bet_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "FootballbetBundle:Bet:show" }
+
+bet_new:
+    pattern:  /new
+    defaults: { _controller: "FootballbetBundle:Bet:new" }
+
+bet_create:
+    pattern:  /create
+    defaults: { _controller: "FootballbetBundle:Bet:create" }
+    requirements: { _method: post }
+
+bet_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "FootballbetBundle:Bet:edit" }
+
+bet_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "FootballbetBundle:Bet:update" }
+    requirements: { _method: post|put }
+
+bet_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "FootballbetBundle:Bet:delete" }
+
+bets_new_from_game:
+    pattern:  /createFromGame
+    defaults: { _controller: "FootballbetBundle:Bet:createFromGame" }
+
+filtro_bet:
+    pattern:  /filtro_bet
+    defaults: { _controller: "FootballbetBundle:Bet:filtro_bet" }
+    requirements: { _method: post }
+
+cambiar_bet:
+    pattern:  /cambiarBet/{idBet}/{betChoice}
+    defaults: { _controller: "FootballbetBundle:Bet:cambiarBet" }

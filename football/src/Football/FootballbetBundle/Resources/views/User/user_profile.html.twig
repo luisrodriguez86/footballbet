@@ -1,0 +1,220 @@
+{% extends 'FootballbetBundle::layout.html.twig' %}
+
+{% block title %}
+    - Bienvenidos al Sitio de ...
+{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('bundles/footballbet/plugins/jquery-multi-select/css/multi-select.css')}}">
+
+    {{ parent() }}
+{% endblock %}
+
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/footballbet/js/jquery-1.8.2.min.js')}}"></script>
+    <script src="{{ asset('bundles/footballbet/plugins/jquery-multi-select/js/jquery.multi-select.js')}}"></script>
+    <script src="{{ asset('bundles/footballbet/plugins/jquery-multi-select/js/jquery.quicksearch.js')}}"></script>
+
+    {{ parent() }}
+
+    <script type="text/javascript">
+        var seleccionados = new Array();
+        var trabajando = false;
+        $(function(){
+		
+			$('.navigation .pagination a').each(function(){
+                var url = $(this).attr('href');
+                $(this).attr('href',url+'#mis_apuestas')
+            });
+		
+			function archivo(evt) {
+				var files = evt.target.files; // FileList object
+
+				//Obtenemos la imagen del campo "file".
+				for (var i = 0, f; f = files[i]; i++) {
+					//Solo admitimos imágenes.
+					if (!f.type.match('image.*')) {
+						continue;
+					}
+
+					var reader = new FileReader();
+
+					reader.onload = (function(theFile) {
+						return function(e) {
+							// Creamos la imagen.
+							document.getElementById("list").innerHTML = ['<img class="img-circle img-thumbnail" width="144" src="', e.target.result,'" title="', escape(theFile.name), '"/>'].join('');
+							document.getElementById("imagen_profile").remove()
+						};
+					})(f);
+
+					reader.readAsDataURL(f);
+				}
+			}
+
+			document.getElementById('football_footballbetbundle_user_profile_file').addEventListener('change', archivo, false);
+            
+            $('#football_footballbetbundle_grupo_users').multiSelect({
+                selectableHeader: "<input type='text' class='form-control search-input' autocomplete='off' placeholder='Buscar...'>",
+                selectionHeader: "<input type='text' class='form-control search-input' autocomplete='off' placeholder='Buscar...'>",
+                afterInit: function (ms) {
+                    var that = this,
+                            $selectableSearch = that.$selectableUl.prev(),
+                            $selectionSearch = that.$selectionUl.prev(),
+                            selectableSearchString = '#' + that.$container.attr('id') + ' .ms-elem-selectable:not(.ms-selected)',
+                            selectionSearchString = '#' + that.$container.attr('id') + ' .ms-elem-selection.ms-selected';
+                    that.qs1 = $selectableSearch.quicksearch(selectableSearchString)
+                            .on('keydown', function (e) {
+                                if (e.which === 40) {
+                                    that.$selectableUl.focus();
+                                    return false;
+                                }
+                            });
+                    that.qs2 = $selectionSearch.quicksearch(selectionSearchString)
+                            .on('keydown', function (e) {
+                                if (e.which == 40) {
+                                    that.$selectionUl.focus();
+                                    return false;
+                                }
+                            });
+                },
+                afterSelect: function () {
+                    this.qs1.cache();
+                    this.qs2.cache();
+                },
+                afterDeselect: function () {
+                    this.qs1.cache();
+                    this.qs2.cache();
+                }
+            });
+
+
+        } );        
+
+    </script>
+
+{% endblock %}
+{% block content %}
+    <div class="row form-group">
+        <div class="container container-menu">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#profile" data-toggle="tab">Mi Cuenta</a></li>
+                <li><a href="#crear_grupo" data-toggle="tab">Crear Grupo</a></li>
+                <li><a href="#mis_apuestas" data-toggle="tab">Mis apuestas</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content contact-us what-we-do" style="padding-top: 25px">
+                    <div class="tab-pane active" id="profile">
+
+						<div class="span3"></div>
+						<div class="span6 service">
+                        <form action="{{ path('user_profile') }}" {{ form_enctype(profile_form) }} method="post">
+
+						<div class="form-group" style="text-align:center;">
+							<img src="{{ asset(image_web_dir~usuario.photo)}}" width="140px" class="img-circle img-responsive img-thumbnail" id="imagen_profile">
+							<output id="list" ></output>							
+						</div>
+						<div class="fileUpload ">
+							<span>Editar</span>
+							{{ form_widget(profile_form.file) }}
+						</div>
+						
+                        <div class="form-group">
+							{{ form_label(profile_form.nombre) }}
+							{{ form_widget(profile_form.nombre) }}
+						</div>
+                          
+                        <div class="form-group">
+                            {{ form_rest(profile_form) }}
+                        </div>
+
+                        </form>
+					</div>
+					<div class="span3">
+					</div>
+
+
+                </div>
+                <div class="tab-pane" id="crear_grupo">
+                    <div class="row">
+                        {{ render(controller('FootballbetBundle:Grupo:crearGrupoFrontEnd')) }}
+
+                    </div>
+                </div>
+                <div class="tab-pane text-center" id="mis_apuestas">
+                    <div class="table-responsive">
+                         {% for apuesta in pagination %}
+                        <table class="table-striped tablaMisApuestas thumbnail span9">
+                            <thead>
+                            <tr class="span9"><th class="span9"><h5>{{ apuesta.grupo }}</h5></th></tr>
+                            <tr class="span9">
+                                <th class="span3">Juego</th>
+                                <th class="span3">Fecha</th>
+                                <th class="span3">Apuesta</th>
+                               {# <th>Acciones</th>#}
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for apuesta2 in apuesta.apuestas %}
+                                {#{% set proximo = ( entity.date|date('Ymd')) > ('now'|date('Ymd')) %}
+                                {% if proximo == true %}#}
+                                <tr class="highlight span9">
+                                    <td class="span3">
+                                        <ul>
+                                            <li class="list-group-item">
+                                        <span style="margin-top: -5px">
+                                            <img src="{{ apuesta2.game.local.logo }}" width="30px" height="20px" title="{{ apuesta2.game.local.nombre }}"/>
+                                            {#<span>{{ apuesta2.game.localGoals }}</span>#}
+                                            <span> vs </span>
+                                            {#<span>{{ apuesta2.game.awayGoals }}</span>#}
+                                            <img src="{{ apuesta2.game.away.logo }}" width="30px" height="20px" title="{{ apuesta2.game.away.nombre }}"/>
+
+                                        </span>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td class="span3"><span style="padding: 0px 8px">{% if apuesta2.game.date %}{{ apuesta2.game.date|date('Y-m-d H:i') }}{% endif %}</span>
+                                    </td>
+                                    <td class="span3">
+                                        <ul>
+                                            <li class="list-group-item">
+                                        <span>
+                                                {% if apuesta2.localwin %}
+                                                    {{ apuesta2.game.local.nombre }}
+                                                {% endif %}
+                                            {% if apuesta2.draft %}
+                                                Empatados
+                                            {% endif %}
+                                            {% if apuesta2.awaywin %}
+                                                {{ apuesta2.game.away.nombre }}
+                                            {% endif %}
+                                            </span>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                   {# <td>
+                                        <ul>
+                                            <li>
+                                                Eliminar
+                                            </li>
+                                        </ul>
+                                    </td>#}
+                                </tr>
+                                {#{% endif %}#}
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                             {% endfor %}
+                        <div class="navigation">
+                            {{ knp_pagination_render(pagination) }}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

@@ -1,0 +1,67 @@
+
+<table class="table table-striped table-bordered table-advance table-hover" id="tableUsers">
+    <thead>
+
+    <tr>
+        <th>Eliminar</th>
+        <th>Usuario</th>
+        <th>Grupo</th>
+        <th>Fecha</th>
+        <th>Juego</th>
+        <th>Apuesta</th>
+        <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for entity in pagination %}
+        <tr>
+            <td><a href="{{ path('bet_delete', {'id': entity.id }) }}" class="icon-remove"></a></td>
+            <td>{{ entity.usergrupo.user.nombre }}</td>
+            <td>{{ entity.usergrupo.grupo.nombre }}</td>
+            <td>{{ entity.date | date('Y-m-d') }}</td>
+            <td>
+                                        <span  style="margin-top: -5px">
+                                            <img src="{{ entity.game.local.logo }}" width="30px" height="20px" title="{{ entity.game.local.nombre }}" />
+                                            <span>{{ entity.game.localGoals }}</span>
+                                            <span> vs </span>
+                                            <span>{{ entity.game.awayGoals }}</span>
+                                            <img src="{{ entity.game.away.logo }}" width="30px" height="20px" title="{{ entity.game.away.nombre }}" />
+
+                                        </span>
+            </td>
+            <td>
+                                            <span>
+                                                {% if entity.localwin %}
+                                                    {{ entity.game.local.nombre }}
+                                                {% endif %}
+                                                {% if entity.draft %}
+                                                    Empate
+                                                {% endif %}
+                                                {% if entity.awaywin %}
+                                                    {{ entity.game.away.nombre }}
+                                                {% endif %}
+                                            </span>
+            </td>
+            <td>
+
+                <a class="btn default btn-xs green" id="localWins-{{ entity.id }}"
+                   href="{{ path('cambiar_bet',{'idBet':entity.id,'betChoice':'-1'} ) }}">{{ entity.game.local.nombre }}</a>
+
+                <a class="btn btn-xs btn-warning" id="drafWins-{{ entity.id }}"
+                   href="{{ path('cambiar_bet',{'idBet':entity.id,'betChoice':'0'} ) }}" >Empate</a>
+
+                <a class="btn default btn-xs red" id="awayWins-{{ entity.id }}"
+                   href="{{ path('cambiar_bet',{'idBet':entity.id,'betChoice':'1'} ) }}">{{ entity.game.away.nombre }}</a>
+
+            </td>
+        </tr>
+    {% else %}
+        <tr style="background-color: #F9F9F9"> <td style="border: none">No existen resultados.</td><td style="border: none; background-color: #F9F9F9"></td><td style="border: none; background-color: #F9F9F9"></td><td style="border: none; background-color: #F9F9F9"></td> </tr>
+        {#<tr> <td><h5>No existen resultados.</h5></td> </tr>#}
+
+    {% endfor %}
+    </tbody>
+</table>
+<div class="navigation">
+    {{ knp_pagination_render(pagination) }}
+</div>

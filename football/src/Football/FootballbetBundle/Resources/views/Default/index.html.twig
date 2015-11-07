@@ -1,0 +1,57 @@
+{% extends 'FootballbetBundle::layout.html.twig' %}
+
+{% block title %}
+    - Bienvenidos al Sitio de ...
+{% endblock %}
+
+{% block content %}
+
+    {% include 'FootballbetBundle:Default:slider.html.twig' %}
+
+    <!-- Site Description -->
+    <div class="presentation container">
+        <h2>Somos <span class="violet">Porra4Friends</span>, amigos del f&uacute;tbol.</h2>
+        <p>Comparte la pasi&oacute;n.</p>
+    </div>
+
+    <!-- Services -->
+    <div class="what-we-do container">
+        <div style="margin-right: 2%; margin-left: 2%">
+            <div class="span1"></div>
+            <div class="service span3">
+                <div class="icon-awesome">
+                    <i class="icon-table"></i>
+                </div>
+                <h4>Grupos</h4>
+                <p>Accede a los grupos para ver los amigos que comparten tu pasi&oacute;n por el deporte de las m&uacute;ltitudes.</p>
+                <a href="{{ path('grupos') }}">Acceder</a>
+            </div>
+            <div class="service span3">
+                <div class="icon-awesome">
+                    <i class="icon-magic"></i>
+                </div>
+                <h4>Resultados</h4>
+                <p>Conozca los resultados de la Liga Espa&ntilde;ola en ambas divisiones. Mant&eacute;ngase actualizado. No deje que nadie se lo cuente.</p>
+                <a href="{{ path('results') }}">Conocer</a>
+            </div>
+            <div class="service span3">
+                <div class="icon-awesome">
+                    <i class="icon-user"></i>
+                </div>
+                <h4>Mi cuenta</h4>
+                <p>Gestione y administre la informaci&oacute;n de su cuenta. Un conjunto de facilidades para que se sienta como en su casa.</p>
+                <a href="{{path("user_profile")}}">Gestionar</a>
+            </div>
+            <div class="span1"></div>
+            {#<div class="service span3">
+                <div class="icon-awesome">
+                    <i class="icon-eye-open"></i>
+                </div>
+                <h4>Beautiful Websites</h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et...</p>
+                <a href="services.html">Read more</a>
+            </div>#}
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,30 @@
+team:
+    pattern:  /
+    defaults: { _controller: "FootballbetBundle:Team:index" }
+
+team_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "FootballbetBundle:Team:show" }
+
+team_new:
+    pattern:  /new
+    defaults: { _controller: "FootballbetBundle:Team:new" }
+
+team_create:
+    pattern:  /create
+    defaults: { _controller: "FootballbetBundle:Team:create" }
+    requirements: { _method: post }
+
+team_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "FootballbetBundle:Team:edit" }
+
+team_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "FootballbetBundle:Team:update" }
+    requirements: { _method: post|put }
+
+team_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "FootballbetBundle:Team:delete" }
+    requirements: { _method: post|delete }

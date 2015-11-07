@@ -1,0 +1,43 @@
+security:
+    encoders:
+         Football\FootballbetBundle\Entity\User: { algorithm:sha1 , iterations:10 }
+
+    role_hierarchy:
+        ROLE_GROUP_ADMIN: ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_GROUP_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
+    providers:
+        usuarios:
+            entity: { class: Football\FootballbetBundle\Entity\User }
+
+    firewalls:
+            frontend:
+                pattern:    ^/*
+                anonymous: ~
+                form_login:
+                    check_path: user_login_check
+                    login_path: user_login
+                    always_use_default_target_path: true
+                    default_target_path: home
+                logout:
+                    path: user_logout
+
+    access_control:
+        - { path: ^/$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/update_results, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/login_register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/prueba, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/user/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/forgot_password, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/cambiarpass*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/grupo/activar, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/grupo/grupos, roles: ROLE_USER }
+        - { path: ^/grupo/crear_grupo, roles: ROLE_USER }
+        - { path: ^/grupo*, roles: [ROLE_GROUP_ADMIN, ROLE_SUPER_ADMIN] }
+        - { path: ^/bet/createFromGame, roles: ROLE_USER }
+        - { path: ^/bet*, roles: [ROLE_SUPER_ADMIN, ROLE_GROUP_ADMIN] }
+        - { path: ^/publicity*, roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/admin_begin*, roles: [ROLE_GROUP_ADMIN, ROLE_SUPER_ADMIN] }
+        - { path: ^/user/profile, roles: ROLE_USER }
+        - { path: ^/user*, roles: [ROLE_GROUP_ADMIN, ROLE_SUPER_ADMIN] }
+        - { path: ^/*, roles: ROLE_USER }

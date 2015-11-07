@@ -1,0 +1,225 @@
+{% extends '::base.html.twig' %}
+
+{% block metatags %}
+    <!--[if IE 8]> <html lang="es" class="ie8"> <![endif]-->
+    <!--[if IE 9]> <html lang="es" class="ie9"> <![endif]-->
+    <!--[if !IE]><!--> <html lang="es"> <!--<![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+{{ parent() }}
+{% endblock %}
+
+{% block title %}{{ parent() }}{% endblock %}
+
+{% block stylesheets %}
+
+    <link href="{{ asset('bundles/footballbet/css/admin/font-awesome.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('bundles/footballbet/css/admin/bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
+
+    <!-- BEGIN THEME STYLES -->
+    <link href="{{ asset('bundles/footballbet/css/admin/style-metronic.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('bundles/footballbet/css/admin/style.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('bundles/footballbet/css/admin/style-responsive.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('bundles/footballbet/css/admin/default.css') }}" rel="stylesheet" type="text/css" id="style_color"/>
+    <link rel="stylesheet" href="{{ asset('bundles/footballbet/bootstrap/bootstrap-toastr/toastr.min.css')}}">
+    {#<link href="{{ asset('bundles/footballbet/css/admin/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css">#}
+
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+    <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+    <!-- BEGIN CORE PLUGINS -->
+    <!--[if lt IE 9]>
+    <script src="{{ asset('bundles/footballbet/js/admin/respond.min.js') }}"></script>
+    <![endif]-->
+    <script src="{{ asset('bundles/footballbet/js/admin/jquery-1.10.2.min.js') }}" type="text/javascript"></script>
+    <!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+    <script src="{{ asset('bundles/footballbet/js/admin/bootstrap.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/footballbet/js/admin/bootstrap-modal.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/footballbet/js/admin/twitter-bootstrap-hover-dropdown.min.js') }}" type="text/javascript" ></script>
+    <script src="{{ asset('bundles/footballbet/bootstrap/bootstrap-toastr/toastr.min.js') }}" type="text/javascript"></script>
+    {{ parent() }}
+    {#<script src="{{ asset('bundles/footballbet/js/admin/bootstrap-datepicker.en.min.js') }}"></script>#}
+    <!-- END PAGE LEVEL SCRIPTS -->
+   <!-- <script>
+        jQuery(document).ready(function() {
+            App.init(); // initlayout and core plugins
+            Index.init();
+            Index.initChat();
+            Index.initMiniCharts();
+            Index.initIntro();
+            Tasks.initDashboardWidget();
+        });
+    </script>/-->
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            var url = document.location.href;
+            var pos = 0;
+            var pos2 = 0;
+            var elemento = '';
+            jQuery(".page-sidebar-menu a").each(function (){
+
+                if(jQuery(this).attr('href') == url){
+                    jQuery(this).parent().addClass('active');
+                }
+            });
+
+            //renderizando los mensajes a partir de twig
+            {% for tipo, mensajes in app.session.flashbag.all() %}
+            {% for mensaje in mensajes %}
+            toastr.options.timeOut=15000;
+            toastr.options.closeButton=true;
+            {% if tipo == 'error' %}
+            toastr.error('{{ mensaje }}',toastr.options);
+            {% endif %}
+            {% if tipo == 'info'%}
+            toastr.info('{{ mensaje }}',toastr.options);
+            {% endif %}
+            {% endfor %}
+            {% endfor %}
+        });
+    </script>
+
+
+{% endblock %}
+
+
+{% block topheader %}
+    <!-- BEGIN HEADER -->
+    <div class="header navbar navbar-inverse navbar-fixed-top">
+    <!-- BEGIN TOP NAVIGATION BAR -->
+    <div class="header-inner">
+    <!-- BEGIN LOGO -->
+    <a class="navbar-brand" href="{{ path('home') }}">
+       <h3>{{ football_sitio_nombre }}</h3>
+    </a>
+    <!-- END LOGO -->
+    <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+    <!-- END RESPONSIVE MENU TOGGLER -->
+    <!-- BEGIN TOP NAVIGATION MENU -->
+    <ul class="nav navbar-nav pull-right">
+    <!-- BEGIN NOTIFICATION DROPDOWN -->
+
+    <!-- END NOTIFICATION DROPDOWN -->
+    <!-- BEGIN INBOX DROPDOWN -->
+
+    <!-- END INBOX DROPDOWN -->
+    <!-- BEGIN TODO DROPDOWN -->
+
+    <!-- END TODO DROPDOWN -->
+    <!-- BEGIN USER LOGIN DROPDOWN -->
+	
+    <li class="dropdown user">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+
+            <span class="username">{{app.user.nombre}}</span>
+            <i class="icon-angle-down"></i>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a href="{{path("user_profile")}}"><i class="icon-user"></i> Mi Perfil</a>
+            </li>
+           <li class="divider"></li>
+            </li>
+            <li><a href="{{path("user_logout")}}"><i class="icon-key"></i> Salir</a>
+            </li>
+        </ul>
+    </li>
+    <!-- END USER LOGIN DROPDOWN -->
+    </ul>
+    <!-- END TOP NAVIGATION MENU -->
+    </div>
+    <!-- END TOP NAVIGATION BAR -->
+    </div>
+    <!-- END HEADER -->
+{% endblock %}
+{% block body %}
+{% block sidebar %}
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar navbar-collapse collapse">
+        <!-- BEGIN SIDEBAR MENU -->
+        <ul class="page-sidebar-menu {% if is_granted('ROLE_SUPER_ADMIN')%}
+            {{ 'sidebar-superadmin' }}
+         {% endif %}
+            {% if is_granted('ROLE_GROUP_ADMIN') %}
+                {{ 'sidebar-admingruoup' }}
+            {% endif %}
+         ">
+            <li>
+            </li>
+            <li>
+                <!-- BEGIN RESPONSIVE QUICK SEARCH FORM -->
+                <form class="sidebar-search" action="" method="">
+                    <div class="form-container">
+
+                    </div>
+                </form>
+                <!-- END RESPONSIVE QUICK SEARCH FORM -->
+            </li>
+            {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_GROUP_ADMIN') %}
+            <li class="last">
+                <a href="{{ url('grupo') }}">
+                    <i class="icon-user-md"></i>
+                    <span class="title">Grupo</span>
+                </a>
+            </li>
+            {% endif %}
+            {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_GROUP_ADMIN') %}
+            <li class="last">
+                <a href="{{ url('bet') }}">
+                    <i class="icon-dollar"></i>
+                    <span class="title">Apuestas</span>
+                </a>
+            </li>
+            {% endif %}
+            {% if is_granted('ROLE_SUPER_ADMIN') %}
+            <li class="last">
+                <a href="{{ url('user') }}">
+                    <i class="icon-user"></i>
+                    <span class="title">Usuarios</span>
+                </a>
+            </li>
+            {% endif %}
+            {% if is_granted('ROLE_SUPER_ADMIN') %}
+            <li class="last">
+                <a href="{{ url('publicity') }}">
+                    <i class="icon-picture"></i>
+                    <span class="title">Publicidad</span>
+                </a>
+            </li>
+            {% endif %}
+
+        </ul>
+        <!-- END SIDEBAR MENU -->
+    </div>
+    <!-- END SIDEBAR -->
+{% endblock %}
+<div style="padding-top: 40px">
+    {% block content %}
+
+
+    {% endblock %}
+
+</div>
+
+<!-- BEGIN FOOTER -->
+<div class="footer">
+    <div class="header navbar navbar-inverse navbar-fixed-bottom">
+        <!-- BEGIN TOP NAVIGATION BAR -->
+        <div class="header-inner">
+            <!-- BEGIN LOGO -->
+            <a class="navbar-brand" href="{{ path('home') }}" >
+                <h5 style="text-align: center">2015 &copy; Porra4Friends.</h5>
+            </a>
+
+        </div>
+    </div>
+</div>
+<!-- END FOOTER -->
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,109 @@
+<html lang="es" class="login">
+
+<link href="{{ asset('bundles/footballbet/css/admin/font-awesome.min.css') }}" rel="stylesheet" type="text/css"/>
+<link href="{{ asset('bundles/footballbet/css/admin/bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
+<!-- END PAGE LEVEL PLUGIN STYLES -->
+
+<!-- BEGIN THEME STYLES -->
+
+<link href="{{ asset('bundles/footballbet/css/admin/style-metronic.css') }}" rel="stylesheet" type="text/css"/>
+<link href="{{ asset('bundles/footballbet/css/admin/style.css') }}" rel="stylesheet" type="text/css"/>
+<link href="{{ asset('bundles/footballbet/css/admin/style-responsive.css') }}" rel="stylesheet" type="text/css"/>
+<link href="{{ asset('bundles/footballbet/css/admin/login.css') }}" rel="stylesheet" type="text/css">
+
+<script src="{{ asset('bundles/footballbet/js/admin/respond.min.js') }}"></script>
+
+<script src="{{ asset('bundles/footballbet/js/admin/jquery-1.10.2.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('bundles/footballbet/js/admin/jquery-migrate-1.2.1.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('bundles/footballbet/bootstrap/js/bootstrap-hover-dropdown/twitter-bootstrap-hover-dropdown.min.js') }}" type="text/javascript" ></script>
+
+<!-- END CORE PLUGINS -->
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<script src="{{ asset('bundles/footballbet/js/jquery-validation/dist/jquery.validate.min.js') }}" type="text/javascript"></script>
+
+<!-- END PAGE LEVEL PLUGINS -->
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+
+<script src="{{ asset('bundles/footballbet/js/admin/login.js') }}" type="text/javascript"></script>
+<!-- END PAGE LEVEL SCRIPTS -->
+<script>
+    jQuery(document).ready(function() {
+       Login.init();
+    });
+</script>
+
+<div class="login" >
+    <div class="logo">
+        {#<img src="{{ asset('bundles/footballbet/img/logo.png') }}" alt="" />#}
+    </div>
+    <div class="content">
+
+        <form class="login-form" action="{{ path("login_register") }}" method="post" {{ form_enctype(form) }}>
+        <h3>Crea una Cuenta</h3>
+        <p>Introduzca sus datos personales:</p>
+        <div class="form-group">
+            <label class="control-label visible-ie8 visible-ie9">Nombre Completo</label>
+            {{ form_errors(form.nombre)  }}
+            <div class="input-icon">
+                <i class="icon-font"></i>
+                {{ form_widget(form.nombre) }}
+            </div>
+        </div>
+        <div class="form-group">
+            <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+            <label class="control-label visible-ie8 visible-ie9">Email</label>
+            {{ form_errors(form.email) }}
+            <div class="input-icon">
+                <i class="icon-envelope"></i>
+                {{ form_widget(form.email) }}
+            </div>
+        </div>
+            {{ form_errors(form.file) }}
+        <div class="form-group">
+            <label class="control-label visible-ie8 visible-ie9">Avatar</label>
+            <div class="">
+                {{ form_widget(form.file)}}
+            </div>
+        </div>
+
+        <p>Introduzca la clave de su cuenta:</p>
+        <div class="form-group">
+            <label class="control-label visible-ie8 visible-ie9">Clave</label>
+            {{ form_errors(form.password) }}
+            <div class="input-icon">
+                <i class="icon-lock"></i>
+                {{ form_widget(form.password) }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label visible-ie8 visible-ie9">Repita su Clave</label>
+            <div class="controls">
+                {{ form_errors(form.password_confirm) }}
+                <div class="input-icon">
+                    <i class="icon-ok"></i>
+                    {{ form_widget(form.password_confirm) }}
+                </div>
+            </div>
+        </div>
+            {{ form_widget(form._token) }}
+        {#<div class="form-group">
+            <label>
+                <input type="checkbox" name="tnc"/> Estoy de acuerdo con <a href="#">T&eacute;rminos y condiciones</a> y <a href="#">Pol&iacute;tica de Privacidad</a>
+            </label>
+            <div id="register_tnc_error"></div>
+        </div>#}
+        <div class="form-actions">
+            <a class="btn default" id="back-btn" type="button" href="{{ path('home')}}">
+                <i class="icon-circle-arrow-left"></i> Regresar
+            </a>
+           <button type="submit" id="register-submit-btn" class="btn green pull-right">
+                Guardar <i class="icon-circle-arrow-right"></i>
+            </button>
+        </div>
+        </form>
+    </div>
+</div>
+
+</html>
+
+

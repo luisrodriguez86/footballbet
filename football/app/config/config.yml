@@ -1,0 +1,108 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+
+framework:
+    #esi:             ~
+    #translator:      { fallback: %locale% }
+    secret:          %secret%
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    form:            ~
+    csrf_protection: ~
+    validation:      { enable_annotations: true }
+    templating:
+        engines: ['twig']
+        #assets_version: SomeVersionScheme
+    default_locale:  "%locale%"
+    trusted_proxies: ~
+    session:         ~
+    fragments:       ~
+    http_method_override: true
+
+# Twig Configuration
+twig:
+    debug:            %kernel.debug%
+    strict_variables: %kernel.debug%
+    globals:
+        image_web_dir: bundles/footballbet/uploads/users/avatars/
+        football_sitio_nombre: %football.sitio.nombre%
+
+# Assetic Configuration
+assetic:
+    debug:          %kernel.debug%
+    use_controller: false
+    bundles:        [ ]
+    #java: /usr/bin/java
+    filters:
+        cssrewrite: ~
+        #closure:
+        #    jar: %kernel.root_dir%/Resources/java/compiler.jar
+        #yui_css:
+        #    jar: %kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        driver:   %database_driver%
+        host:     %database_host%
+        port:     %database_port%
+        dbname:   %database_name%
+        user:     %database_user%
+        password: %database_password%
+        charset:  UTF8
+        # if using pdo_sqlite as your database driver, add the path in parameters.yml
+        # e.g. database_path: %kernel.root_dir%/data/data.db3
+        # path:     %database_path%
+
+    orm:
+        auto_generate_proxy_classes: %kernel.debug%
+        auto_mapping: true
+
+# Swiftmailer Configuration
+swiftmailer:
+    disable_delivery: false
+    transport: %mailer_transport%
+    encryption: %mailer_encryption%
+    auth_mode: %mailer_auth_mode%
+    host: %mailer_host% 
+    username: %mailer_user%
+    password: %mailer_password%
+    port: %mailer_port%
+    spool: { type: memory }
+
+parameters:
+    football.sitio.nombre : Porra4Friends
+    football.sitio.correo_admin : administrador@aldea.cu
+
+# PARA LOS RESULTADOS
+#    footballbet.json.resultados.ligaBBA.url : http://localhost/space/football/web/bundles/footballbet/json/resultados.txt
+    footballbet.json.resultados.ligaBBA.url : http://www.resultados-futbol.com/scripts/api/api.php?tz=Europe/Madrid&format=json&req=matchs&key=d2cff9063b76287791668fd0a65e2a9c&league=1&order=twin&twolegged=1&year=ANNOACTUAL
+#    footballbet.json.resultados.segundaDiv.url : http://localhost/space/football/web/bundles/footballbet/json/resultados.txt
+    footballbet.json.resultados.segundaDiv.url : http://www.resultados-futbol.com/scripts/api/api.php?tz=Europe/Madrid&format=json&req=matchs&key=d2cff9063b76287791668fd0a65e2a9c&league=2&order=twin&twolegged=2&year=ANNOACTUAL
+# PARA LOS RESULTADOS
+
+# PARA LA CLASIFICACION
+#    footballbet.json.clasificacion.ligaBBA.url: http://localhost/space/football/web/bundles/footballbet/json/clasificacion.txt
+    footballbet.json.clasificacion.ligaBBA.url: http://www.resultados-futbol.com/scripts/api/api.php?tz=Europe/Madrid&format=json&req=tables&key=d2cff9063b76287791668fd0a65e2a9c&league=1
+    footballbet.json.clasificacion.segundaDiv.url: http://www.resultados-futbol.com/scripts/api/api.php?tz=Europe/Madrid&format=json&req=tables&key=d2cff9063b76287791668fd0a65e2a9c&league=2
+#    footballbet.json.clasificacion.segundaDiv.url: http://localhost/space/football/web/bundles/footballbet/json/clasificacion.txt
+# PARA LA CLASIFICACION
+
+# PARA LA ACTUALIZACION DE LOS RESULTADOS
+#LIGAS
+#    footballbet.json.leagues.url : http://www.resultados-futbol.com/scripts/api/api.php?tz=Europe/Madrid&format=json&req=leagues&key=d2cff9063b76287791668fd0a65e2a9c&top=1&year=ANNOACTUAL&limit=20&init=INICIO
+#    footballbet.json.leagues.url : http://localhost/space/football/web/bundles/footballbet/json/resultsLeagues.txt
+#LIGAS
+
+#TEAMS
+#    footballbet.json.teams.url : http://www.resultados-futbol.com/scripts/api/api.php?tz=Europe/Madrid&format=json&req=get_teams&key=d2cff9063b76287791668fd0a65e2a9c&filter=espana&init=INICIO
+#    footballbet.json.teams.url : http://localhost/space/football/web/bundles/footballbet/json/resultsTeams.txt
+#TEAMS
+
+#GAMES
+    footballbet.json.games.url : http://www.resultados-futbol.com/scripts/api/api.php?tz=Europe/Madrid&format=json&req=matchs&key=d2cff9063b76287791668fd0a65e2a9c&league=LIGA&order=twin&twolegged=1&year=ANNOACTUAL&init=INICIO
+#    footballbet.json.games.url : http://localhost/space/football/web/bundles/footballbet/json/resultsGames.txt
+#GAMES
+# PARA LA ACTUALIZACION DE LOS RESULTADOS

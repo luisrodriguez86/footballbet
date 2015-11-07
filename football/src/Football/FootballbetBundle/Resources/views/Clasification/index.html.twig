@@ -1,0 +1,114 @@
+{% extends 'FootballbetBundle::layout.html.twig' %}
+
+{% block title %}
+- Bienvenidos al Sitio de ...
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('bundles/footballbet/js/admin/jquery-1.10.2.min.js') }}" type="text/javascript"></script>
+    {{  parent() }}
+{% endblock %}
+
+{% block content %}
+    <div class="row-fluid form-group">
+    <div class="form-group">
+        <h3 class="text-center">CLASIFICACION</h3>
+
+    </div>
+    <div class="container-fluid">
+    <div class="row-fluid">
+    <div class="span1">
+
+    </div>
+    <div class="span10">
+    <div class="span1">
+
+    </div>
+    <div class="span12">
+        <div class="span6">
+
+            <div class="form-group">
+                <h4 class="text-center">PRIMERA</h4>
+
+            </div>
+            <div class="thumbnail">
+                <div class="container-fluid tablaResultados clasificacion">
+                    <div class="row-fluid encabezado">Liga BBVA</div>
+                    <div class="row-fluid fila">
+                        <div class="span1"></div>
+                        <div class="span3">Equipo</div>
+                        <div class="span1">Pts</div>
+                        <div class="span1">PG</div>
+                        <div class="span1">PE</div>
+                        <div class="span1">PP</div>
+                        <div class="span1">GF</div>
+                        <div class="span1">GC</div>
+                    </div>
+                    {% for clasificacion in liga1 %}
+                        <div class="row-fluid fila">
+                            <div class="span1">{{ loop.index }}</div>
+                            <div class="span3">{{ clasificacion.team }}</div>
+                            <div class="span1">{{ clasificacion.points }}</div>
+                            <div class="span1">{{ clasificacion.wins }}</div>
+                            <div class="span1">{{ clasificacion.draws }}</div>
+                            <div class="span1">{{ clasificacion.losses }}</div>
+                            <div class="span1">{{ clasificacion.gf }}</div>
+                            <div class="span1">{{ clasificacion.ga }}</div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+
+        <div class="span6">
+            <div class="form-group">
+                <h4 class="text-center">SEGUNDA</h4>
+            </div>
+            <div class="thumbnail">
+                <div class="container-fluid tablaResultados clasificacion">
+                    <div class="row-fluid encabezado">Segunda División</div>
+                    <div class="row-fluid fila">
+                        <div class="span1"></div>
+                        <div class="span3">Equipo</div>
+                        <div class="span1">Pts</div>
+                        <div class="span1">PG</div>
+                        <div class="span1">PE</div>
+                        <div class="span1">PP</div>
+                        <div class="span1">GF</div>
+                        <div class="span1">GC</div>
+                    </div>
+                    {% for clasificacion in liga2 %}
+                        <div class="row-fluid fila">
+                            <div class="span1">{{ loop.index }}</div>
+                            <div class="span3">{{ clasificacion.team }}</div>
+                            <div class="span1">{{ clasificacion.points }}</div>
+                            <div class="span1">{{ clasificacion.wins }}</div>
+                            <div class="span1">{{ clasificacion.draws }}</div>
+                            <div class="span1">{{ clasificacion.losses }}</div>
+                            <div class="span1">{{ clasificacion.gf }}</div>
+                            <div class="span1">{{ clasificacion.ga }}</div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+    </div>
+    </div>
+    <div class="span1">
+
+    </div>
+
+    </div>
+    <div class="span1"></div>
+
+
+    </div>
+
+    </div>
+
+
+
+
+    </div>
+{% endblock %}

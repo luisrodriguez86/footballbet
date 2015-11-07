@@ -1,0 +1,48 @@
+{% extends 'FootballbetBundle::layout_admin.html.twig' %}
+
+{% block content -%}
+    <div class="page-content">
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Detalles del Roll</h3>
+                <div class="form-inline pull-right form-group">
+                    <div class="form-group">
+                        <a href="{{ path('group_edit', { 'id': entity.id }) }}" class="btn btn-link">
+                            <i class="icon-pencil"></i> Editar
+                        </a>
+                    </div>
+                    <div class="form-group">
+                        <a href="{{ path('group') }}" class="btn btn-link">
+                            <i class="icon-list"></i> Volver al listado
+                        </a>
+                    </div>
+
+                    <div class="form-group">{{ form(delete_form) }}</div>
+                </div>
+                <table class="table table-striped">
+                    <tbody>
+
+                    <tr>
+                        <th>Nombre</th>
+                        <td>{{ entity.name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Rol</th>
+                        <td>{{ entity.role }}</td>
+                    </tr>
+                    <tr>
+                        <th>Descripci&oacute;n</th>
+                        <td>{{ entity.description }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+{% endblock %}
+

@@ -1,0 +1,30 @@
+usergrupo:
+    pattern:  /
+    defaults: { _controller: "FootballbetBundle:UserGrupo:index" }
+
+usergrupo_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "FootballbetBundle:UserGrupo:show" }
+
+usergrupo_new:
+    pattern:  /new
+    defaults: { _controller: "FootballbetBundle:UserGrupo:new" }
+
+usergrupo_create:
+    pattern:  /create
+    defaults: { _controller: "FootballbetBundle:UserGrupo:create" }
+    requirements: { _method: post }
+
+usergrupo_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "FootballbetBundle:UserGrupo:edit" }
+
+usergrupo_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "FootballbetBundle:UserGrupo:update" }
+    requirements: { _method: post|put }
+
+usergrupo_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "FootballbetBundle:UserGrupo:delete" }
+    requirements: { _method: post|delete }

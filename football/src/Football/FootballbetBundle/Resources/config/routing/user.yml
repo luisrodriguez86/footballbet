@@ -1,0 +1,39 @@
+user:
+    pattern:  /
+    defaults: { _controller: "FootballbetBundle:User:index" }
+
+user_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "FootballbetBundle:User:show" }
+
+user_new:
+    pattern:  /new
+    defaults: { _controller: "FootballbetBundle:User:new" }
+
+user_create:
+    pattern:  /create
+    defaults: { _controller: "FootballbetBundle:User:create" }
+    requirements: { _method: post }
+
+user_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "FootballbetBundle:User:edit" }
+
+user_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "FootballbetBundle:User:update" }
+    requirements: { _method: post|put }
+
+user_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "FootballbetBundle:User:delete" }
+    requirements: { _method: post|delete }
+
+filtro_user:
+    pattern:  /filtro_user
+    defaults: { _controller: "FootballbetBundle:User:filtro_user" }
+    requirements: { _method: post }
+
+user_profile:
+    pattern:  /profile
+    defaults: { _controller: "FootballbetBundle:User:user_profile" }

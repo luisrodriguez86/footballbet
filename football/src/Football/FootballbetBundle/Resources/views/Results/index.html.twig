@@ -1,0 +1,76 @@
+{% extends 'FootballbetBundle::layout.html.twig' %}
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('bundles/footballbet/slider-elastic/js/jquery.js')}}"></script>
+
+    {{ parent() }}
+{% endblock %}
+{% block title %}
+    - Bienvenidos al Sitio de ...
+{% endblock %}
+
+{% block content %}
+    <div class="row-fluid form-group">
+        <div class="form-group">
+            <h3 class="text-center">RESULTADOS</h3>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span1">
+
+                </div>
+                <div class="span10">
+
+
+                    <div class="span6">
+
+                        <div class="form-group">
+                            <h4 class="text-center">PRIMERA</h4>
+
+                        </div>
+                        <div class="thumbnail">
+                            <div class="container-fluid tablaResultados">
+                                 <div class="row-fluid encabezado">Liga BBVA</div>
+                                {% for juego in liga1 %}
+                                    <div class="row-fluid fila" style="margin-bottom: 5px;">
+                                        <div class="span4" style="text-align: right">
+                                            {{ juego.local }}
+                                            <img src="{{ juego.local_shield }}" width="30px" height="20px" title="{{ juego.local }}" />
+                                        </div>
+                                        <div class="span4 dia">{{ (juego.date | date) | date('j.F')}}{% if juego.result != 'x-x' %}<br/> {{ juego.result }}{% endif %}</div>
+                                        <div class="span4" style="text-align: left">
+                                            <img src="{{ juego.visitor_shield }}" width="30px" height="20px" title="{{ juego.visitor }}" />
+                                            {{ juego.visitor }}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span6">
+                        <div class="form-group">
+                            <h4 class="text-center">SEGUNDA</h4>
+                        </div>
+                        <div class="thumbnail">
+                            <div class="container-fluid tablaResultados">
+                                <div class="row-fluid encabezado">Segunda División</div>
+                                {% for juego in liga2 %}
+                                    <div class="row-fluid fila" style="margin-bottom: 5px;">
+                                        <div class="span4" style="text-align: right">
+                                            {{ juego.local }}
+                                            <img src="{{ juego.local_shield }}" width="30px" height="20px" title="{{ juego.local }}" />
+                                        </div>
+                                        <div class="span4 dia">{{ (juego.date | date) | date('j.F')}}{% if juego.result != 'x-x' %}<br/> {{ juego.result }}{% endif %}</div>
+                                        <div class="span4" style="text-align: left">
+                                            <img src="{{ juego.visitor_shield }}" width="30px" height="20px" title="{{ juego.visitor }}" />
+                                            {{ juego.visitor }}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+{% endblock %}

@@ -1,0 +1,185 @@
+{% extends 'FootballbetBundle::layout.html.twig' %}
+
+{% block title %}
+    - Bienvenidos al Sitio de ...
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('bundles/footballbet/js/admin/jquery-1.10.2.min.js') }}" type="text/javascript"></script>
+    {{ parent() }}
+    <script type="application/javascript">
+        var betFor;
+        var idGame;
+        var bet;
+        var grupo;
+        var grupoActivo;
+        var cargar = {% if grupos|length != 0 %}true{% else %}false{% endif %};
+
+        function activarBotonesApuestas(){
+            $("a[id*=Wins]").click(
+                    function () {
+                        var elemento = $(this);
+                        betFor = $(this).attr("id").split("-")[0];
+
+                        switch (betFor) {
+                            case 'localWins':
+                            {
+                                bet = -1;
+                                break;
+                            }
+                            case 'drafWins':
+                            {
+                                bet = 0;
+                                break;
+                            }
+                            case 'awayWins':
+                            {
+                                bet = 1;
+                                break;
+                            }
+                        }
+                        idGame = $(this).attr("game");
+
+                        var url = "{{ path('bets_new_from_game') }}";
+
+                        var datos = {
+                            "idGame": idGame,
+                            "bet": bet,
+                            "grupos": grupo
+                        };
+
+                        $.post(url, datos, function (data) {
+                            $(elemento).parents('ul').empty();
+                        });
+
+                        return false;
+                    }
+            );
+        }
+
+        function cargarJuegos() {
+
+            if(cargar){
+                cargar = false;
+            var datos = {
+                'idGrupo': grupoActivo
+            };
+            var url = "{{ path('games_bet') }}";
+            $("#games").html('<div style="text-align: center; margin-top: 40px; margin-left: 250px;"><img   src="{{ asset("bundles/footballbet/img/ajax-loading.gif")}}" width="72px"></div>');
+
+            $.post(url, datos, function (data) {
+                $('#games').fadeOut(100,function(){
+                    $('#games').html(data);
+                    $('#games').fadeIn(500);
+                    activarBotonesApuestas();
+                    cargar = true;
+                });
+
+            });
+
+            }
+        }
+
+        $(function () {
+            grupo = new Array($('#gruposTabs li.active a').attr('grupo'));
+            grupoActivo = $('#gruposTabs li.active a').attr('grupo');
+            $("#gruposTabs a").click(function () {
+                grupo = new Array($(this).attr('grupo'));
+                grupoActivo = $(this).attr('grupo');
+                if(cargar)
+                cargarJuegos();
+            });
+
+            cargarJuegos();
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+    <div class="row form-group" id="tablaClasificacionUsers">
+    <div class="container-menu">
+        <!-- Nav tabs -->
+        <div class="contenedor1">
+            <div class="tabbable tabs-left pull-left">
+                <ul class="nav nav-tabs" id="gruposTabs">
+                    {% for grupo in grupos %}
+                        {% if loop.index == 1 %}
+                            <li class="active"><a grupo={{ grupo.grupo.id }} href="#grupo-{{ grupo.grupo.id }}"
+                                                  data-toggle="tab">{{ grupo.grupo.nombre }}</a></li>
+                        {% else %}
+                            <li><a grupo={{ grupo.grupo.id }} href="#grupo-{{ grupo.grupo.id }}"
+                                   data-toggle="tab">{{ grupo.grupo.nombre }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <!-- Tab panes -->
+            <div class="tab-content pull-left">
+                {% for grupo in grupos %}
+                {% if loop.index == 1 %}
+                <div class="tab-pane active" id="grupo-{{ grupo.grupo.id }}" style="overflow: hidden">
+                    {% else %}
+                    <div class="tab-pane" id="grupo-{{ grupo.grupo.id }}" style="overflow: hidden">
+                        {% endif %}
+                        <div>
+                            <div style="margin-left: 10px">
+                                <div class="web-links-header">
+                                    <h4 style="text-align: center">CLASIFICACION</h4>
+                                </div>
+
+                                <!-- BEGIN PORTLET-->
+                                <div class="thumbnail">
+                                    <div class="portlet-body" style="padding-top: 0px; padding-bottom: 10px;">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover">
+                                                <thead>
+                                                <tr>
+                                                    <th>Lugar</th>
+                                                    <th>Nombre</th>
+                                                    <th>Puntos</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                {% for usuario in grupo.clasificacion %}
+                                                    <tr>
+                                                        <td style="vertical-align: middle" class="
+
+                                                                {% if loop.index == 1 or loop.index == 2 or loop.index == 3 %}
+                                                                    {{ 'first-rank' }}
+                                                                {% endif %}
+                                                                {% if loop.index == 4 %}
+                                                                    {{ 'four-rank' }}
+                                                                {% endif %}
+                                                                {% if loop.index > 3 and loop.length - 1 %}
+                                                                    {{ 'other-rank' }}
+                                                                {% endif %}
+
+                                                                {% if loop.length %}
+                                                                    {{ 'last-rank' }}
+                                                                {% endif %}
+
+                                                                ">
+                                                            {{ loop.index }}</td>
+                                                        <td style="vertical-align: middle">{{ usuario.nombre }}</td>
+                                                        <td style="vertical-align: middle">{{ usuario.points }}</td>
+                                                    </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END PORTLET-->
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div id="games" class="span">
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

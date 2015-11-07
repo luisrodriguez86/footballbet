@@ -1,0 +1,66 @@
+<!-- CSS Slider -->
+<link rel="stylesheet" href="{{ asset('bundles/footballbet/slider-elastic/css/slider-thumbnails.css')}}" type="text/css" media="all" />
+<link rel='stylesheet' href="{{ asset('bundles/footballbet/slider-elastic/css/slider-elastic.css')}}" type='text/css' media='all' />
+
+
+<!-- JavaScripts -->
+<script type="text/javascript">
+    var yiw_prettyphoto_style = 'pp_default';
+</script>
+<script type="text/javascript" src="{{ asset('bundles/footballbet/slider-elastic/js/jquery.js')}}"></script>
+<script type="text/javascript" src="{{ asset('bundles/footballbet/slider-elastic/js/jquery.cycle.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('bundles/footballbet/slider-elastic/js/jquery.easing.1.3.js')}}"></script>
+<script type="text/javascript" src="{{ asset('bundles/footballbet/slider-elastic/js/jquery.prettyPhoto.js')}}"></script>
+<script type="text/javascript" src="{{ asset('bundles/footballbet/slider-elastic/js/jquery.tipsy.js')}}"></script>
+<script type="text/javascript" src="{{ asset('bundles/footballbet/slider-elastic/js/superfish.js')}}"></script><!-- menu -->
+<script type='text/javascript' src="{{ asset('bundles/footballbet/slider-elastic/js/jquery.eislideshow.js')}}"></script>
+<script type="text/javascript" src="{{ asset('bundles/footballbet/slider-elastic/js/jquery.custom.js')}}"></script>
+<!-- SLIDER -->
+<!-- BEGIN #slider -->
+<div id="slider" class="ei-slider elastic">
+
+    <div class="ei-slider-loading">Loading</div>
+
+    <ul class="ei-slider-large">
+        {% for publicidad in publicidades %}
+            <li class="first slide-1 slide align- image-content-type">
+                <img src="{{ asset('bundles/footballbet/slider-elastic/')}}{{ publicidad.photo }}" width="1920" height="400" alt="Love the sport" />
+            </li>
+        {% endfor %}
+        <!--<li class="slide-2 slide align- image-content-type">
+            <img src="{{ asset('bundles/footballbet/slider-elastic/red-passion.jpg')}}" width="1280" height="500" alt="Love the red fruit.." />
+            <div class="ei-title">
+                <h2>Love the red fruit..</h2>
+                <h3>..fruit of passion</h3>
+            </div>
+        </li>
+        <li class="last slide-3 slide align- image-content-type">
+            <a href="http://www.google.it"><img src="{{ asset('bundles/footballbet/slider-elastic/cropped-0012.jpg')}}" width="1000" height="338" alt="" /></a>
+            <div class="ei-title">
+                <h2><a href="http://www.google.it"></a></h2>
+            </div>
+        </li>-->
+    </ul>
+
+    <!-- ei-slider-large -->
+    <ul class="ei-slider-thumbs">
+        <li class="ei-slider-element">Current</li>
+        {% for publicidad in publicidades %}
+            <li><a href="#">Love the sport - ..feel the music</a><img src="{{ asset('bundles/footballbet/slider-elastic/')}}{{ publicidad.photo }}" alt="Love the sport - ..feel the music" /></li>
+        {% endfor %}
+    </ul>
+    <!-- ei-slider-thumbs -->
+    <div class="shadow"></div>
+</div>
+
+<!-- ei-slider -->
+<!-- END #slider -->
+<script type="text/javascript">
+    var     yiw_slider_type = 'elastic',
+            yiw_slider_elastic_speed = 800,
+            yiw_slider_elastic_timeout = 3000,
+            yiw_slider_elastic_autoplay = true,
+            yiw_slider_elastic_animation = 'sides';
+</script>
+
+<!-- /SLIDER -->

@@ -1,0 +1,37 @@
+{% extends 'FootballbetBundle::layout_admin.html.twig' %}
+
+{% block content -%}
+<div style="margin-top: 40px">
+    <div class="col-md-3">
+
+    </div>
+    <div class="col-md-6" style="margin-top: 50px">
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-flag"></i> Crear Equipo
+                </div>
+                <div class="tools">
+                    <a class="collapse" href=""></a>
+                    <a class="config" data-toggle="modal" href="#portlet-config"></a>
+                    <a class="reload" href=""></a>
+                    <a class="remove" href=""></a>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <div class="container">
+                    {{ form(form) }}
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3" style="margin-top: 50px">
+        <div class="record_actions">
+            <a href="{{ path('team') }}" class="form-group btn btn-xs green">
+                Regresar al listado
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

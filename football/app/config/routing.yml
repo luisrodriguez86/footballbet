@@ -1,0 +1,4 @@
+footballbet:
+    resource: "@FootballbetBundle/Resources/config/routing.yml"
+    prefix:   /
+

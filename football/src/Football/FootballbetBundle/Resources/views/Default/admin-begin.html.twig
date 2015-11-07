@@ -1,0 +1,265 @@
+{% extends 'FootballbetBundle::layout_admin.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="{{ asset('bundles/footballbet/js/admin/jquery.flot.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/footballbet/js/admin/jquery.flot.categories.min.js') }}" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+
+                function randValue() {
+                    return (Math.floor(Math.random() * (1 + 40 - 20))) + 20;
+                }
+
+                var plot = $.plot($("#chart_2"), [
+                    {% for valor in datos.comportamientoBetAnno %}
+                    {
+                        data: eval({{ valor.bets | raw }}),
+                        label: {{ valor.anno }}
+                    },
+                    {% endfor %}
+                    /*{
+                        data: pageviews,
+                        label: "Unique Visits"
+                    },
+                    {
+                        data: visitors,
+                        label: "Page Views"
+                    }*/
+                ], {
+                    series: {
+                        lines: {
+                            show: true,
+                            lineWidth: 2,
+                            fill: true,
+                            fillColor: {
+                                colors: [
+                                    {
+                                        opacity: 0.05
+                                    },
+                                    {
+                                        opacity: 0.01
+                                    }
+                                ]
+                            }
+                        },
+                        points: {
+                            show: true
+                        },
+                        shadowSize: 2
+                    },
+                    grid: {
+                        hoverable: true,
+                        clickable: true,
+                        tickColor: "#eee",
+                        borderWidth: 0
+                    },
+                    colors: ["#d12610", "#37b7f3", "#52e136"],
+                    xaxis: {
+                        mode: "categories",
+                        tickLength: 0
+                    },
+                    yaxis: {
+                        ticks: 11,
+                        tickDecimals: 0
+                    }
+                });
+
+
+                function showTooltip(x, y, contents) {
+                    $('<div id="tooltip">' + contents + '</div>').css({
+                        position: 'absolute',
+                        display: 'none',
+                        top: y + 5,
+                        left: x + 15,
+                        border: '1px solid #333',
+                        padding: '4px',
+                        color: '#fff',
+                        'border-radius': '3px',
+                        'background-color': '#333',
+                        opacity: 0.80
+                    }).appendTo("body").fadeIn(200);
+                }
+
+                var previousPoint = null;
+                $("#chart_2").bind("plothover", function (event, pos, item) {
+                    $("#x").text(pos.x.toFixed(2));
+                    $("#y").text(pos.y.toFixed(2));
+
+                    if (item) {
+                        if (previousPoint != item.dataIndex) {
+                            previousPoint = item.dataIndex;
+
+                            $("#tooltip").remove();
+                            var x = item.datapoint[0].toFixed(2),
+                                    y = item.datapoint[1].toFixed(2);
+
+                            for(categoria in item.series.xaxis.categories){
+
+                                if(item.series.xaxis.categories[categoria]==item.datapoint[0])
+
+                                    showTooltip(item.pageX, item.pageY, item.series.label + " - " + categoria);
+
+                            }
+                        }
+                    } else {
+                        $("#tooltip").remove();
+                        previousPoint = null;
+                    }
+                });
+
+        });
+    </script>
+{% endblock %}
+
+{% block title %}
+    - Bienvenidos al Sitio de ...
+{% endblock %}
+
+{% block content %}
+    <!-- BEGIN PAGE -->
+    <div class="page-content">
+        <!-- BEGIN PAGE HEADER-->
+        {#<div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+                <h3 class="page-title">
+                    Dashboard
+                    <small>statistics and more</small>
+                </h3>
+                <ul class="page-breadcrumb breadcrumb">
+                    <li>
+                        <i class="icon-home"></i>
+                        <a href="index.html">Home</a>
+                        <i class="icon-angle-right"></i>
+                    </li>
+                    <li><a href="#">Dashboard</a></li>
+                    <li class="pull-right">
+                        <div id="dashboard-report-range" class="dashboard-date-range tooltips" data-placement="top"
+                             data-original-title="Change dashboard date range">
+                            <i class="icon-calendar"></i>
+                            <span></span>
+                            <i class="icon-angle-down"></i>
+                        </div>
+                    </li>
+                </ul>
+                <!-- END PAGE TITLE & BREADCRUMB-->
+            </div>
+        </div>
+        <!-- END PAGE HEADER-->
+        <!-- BEGIN DASHBOARD STATS -->
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="dashboard-stat blue">
+                    <div class="visual">
+                        <i class="icon-user"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number">
+                            {{ datos.cantidadUser }}
+                        </div>
+                        <div class="desc">
+                            Usuarios
+                        </div>
+                    </div>
+                    <a class="more" href="{{ path('user') }}">
+                        Ver detalles <i class="icon-circle-arrow-right m-icon-white"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="dashboard-stat green">
+                    <div class="visual">
+                        <i class="icon-dollar"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number">{{ datos.cantidadBet }}</div>
+                        <div class="desc">Apuestas</div>
+                    </div>
+                    <a class="more" href="{{ path('bet') }}">
+                        Ver detalles <i class="icon-circle-arrow-right m-icon-white"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="dashboard-stat purple">
+                    <div class="visual">
+                        <i class="icon-globe"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number">{{ datos.cantidadGrupo }}</div>
+                        <div class="desc">Grupos</div>
+                    </div>
+                    <a class="more" href="{{ path('grupos') }}">
+                        Ver detalles <i class="icon-circle-arrow-right m-icon-white"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+        <!-- END DASHBOARD STATS -->
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <!-- BEGIN PORTLET-->
+                <div class="portlet box blue">
+                    <div class="portlet-title">
+                        <div class="caption"><i class="icon-cogs"></i>Ranking Usuarios</div>
+                        <div class="tools">
+
+                        </div>
+                    </div>
+                    <div class="portlet-body" style="padding-top: 0px; padding-bottom: 10px;">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th><i class="icon-picture"></i> Foto</th>
+                                    <th><i class="icon-user"></i> Nombre</th>
+                                    <th><i class="icon-envelope"></i> Email</th>
+                                    <th><i class="icon-star"></i> Puntos</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                {% for entity in datos.cincoMasPoints %}
+                                    <tr>
+                                        <td style="vertical-align: middle"><img
+                                                    src="{{ asset(image_web_dir~entity.photo) }}" class="img-circle"
+                                                    width="42"></td>
+                                        <td style="vertical-align: middle"><a
+                                                    href="{{ path('user_show',{'id':entity.id}) }}">{{ entity.nombre }}</a>
+                                        </td>
+                                        <td style="vertical-align: middle">{{ entity.email }}</td>
+                                        <td style="vertical-align: middle">{{ entity.points }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- END PORTLET-->
+
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <!-- BEGIN PORTLET-->
+                <div class="portlet box red">
+                    <div class="portlet-title">
+                        <div class="caption"><i class="icon-cogs"></i>Apuestas por Año</div>
+                        <div class="tools">
+
+                        </div>
+                    </div>
+                    <div class="portlet-body" style="padding-top: 0px; padding-bottom: 10px;">
+                        <div id="chart_2" class="chart"></div>
+                    </div>
+                </div>
+                <!-- END PORTLET-->
+            </div>
+        </div>
+
+    </div>#}
+    <!-- END PAGE -->
+{% endblock %}

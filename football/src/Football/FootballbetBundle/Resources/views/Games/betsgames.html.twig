@@ -1,0 +1,80 @@
+<div id="bestGames">
+    <div class="portlet">
+        <div class="portlet-title">
+            <h4 class="text-center">Listado de Juegos - {{ league }}</h4>
+        </div>
+        <div class="portlet-body">
+            <div class="table-responsive">
+                {% if entities|length > 0 %}
+                <table class="table-striped thumbnail">
+                    <thead>
+
+                    <tr style="text-align: center">
+                        <th>Fecha</th>
+                        <th></th>
+                        <th></th>
+                        <th>Juego</th>
+                        <th></th>
+
+                        <th>Apuestas</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for entity in entities %}
+                        {#{% set proximo = ( entity.date|date('Ymd')) > ('now'|date('Ymd')) %}
+                        {% if proximo == true %}#}
+                        <tr class="highlight">
+                            <td><span style="padding: 0px 8px; font-weight: bold">{% if entity.date %}{{ entity.date|date('d-M-Y') }}{% endif %}</span></td>
+                            <td>
+                                <ul>
+                                    <li class="list-group-item">
+                                        <span  style="margin-top: -5px;">
+                                            <td style="text-align: right">
+                                                <span>
+                                                    {{ entity.local.nombre }}
+                                                    <img src="{{ entity.local.logo }}" width="30px" height="20px" title="{{ entity.local.nombre }}" />
+                                                </span>
+
+                                            </td>
+                                           <td style="text-align: center; font-weight: bold">
+                                               <span style="margin-left: 10px; margin-right: 10px">{% if entity.date %}{{ entity.date|date('H:i') }}{% endif %}</span>
+                                           </td>
+                                            <td style="text-align: left">
+                                                <span>
+                                                    <img src="{{ entity.away.logo }}" width="30px" height="20px" title="{{ entity.away.nombre }}"/>
+                                                    {{ entity.away.nombre }}
+                                                </span>
+                                            </td>
+
+                                        </span>
+                                    </li>
+                                </ul>
+                            </td>
+
+
+                            <td class="" style="text-align: center">
+                                <ul class="span3">
+                                    {% if apostadosYa is defined and {'id':entity.id} not in apostadosYa %}
+                                    <li class="list-group-item">
+                                        <span  style="margin-top: 5px;" class="pull-right">
+                                            <a href="#" game="{{ entity.id }}" id="localWins-{{ entity.id }}" class="btn btn-success btn-sm" style="width: 80px">{{ entity.local.nombre }}</a>
+                                            <a href="#" game="{{ entity.id }}" id="drafWins-{{ entity.id }}" class="btn btn-warning btn-sm">Empate</a>
+                                            <a href="#" game="{{ entity.id }}" id="awayWins-{{ entity.id }}" class="btn btn-danger btn-sm" style="width: 80px">{{ entity.away.nombre }}</a>
+                                        </span>
+                                    </li>
+                                    {% endif %}
+                                </ul>
+                            </td>
+                        </tr>
+                        {#{% endif %}#}
+                    {% endfor %}
+                    </tbody>
+                </table>
+                 {% else %}
+                     <h4 class="text-center">No existen juegos programados.</h4>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+</div>

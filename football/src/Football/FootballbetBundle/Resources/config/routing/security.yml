@@ -1,0 +1,9 @@
+user_login:
+    path: /login
+    defaults: { _controller: FootballbetBundle:Security:login }
+
+user_login_check:
+    path: /login_check
+
+user_logout:
+    path: /logout

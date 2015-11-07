@@ -1,0 +1,30 @@
+publicity:
+    pattern:  /
+    defaults: { _controller: "FootballbetBundle:Publicity:index" }
+
+publicity_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "FootballbetBundle:Publicity:show" }
+
+publicity_new:
+    pattern:  /new
+    defaults: { _controller: "FootballbetBundle:Publicity:new" }
+
+publicity_create:
+    pattern:  /create
+    defaults: { _controller: "FootballbetBundle:Publicity:create" }
+    requirements: { _method: post }
+
+publicity_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "FootballbetBundle:Publicity:edit" }
+
+publicity_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "FootballbetBundle:Publicity:update" }
+    requirements: { _method: post|put }
+
+publicity_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "FootballbetBundle:Publicity:delete" }
+    requirements: { _method: post|delete }

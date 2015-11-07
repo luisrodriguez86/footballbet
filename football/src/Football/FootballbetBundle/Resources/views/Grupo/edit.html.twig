@@ -1,0 +1,127 @@
+{% extends 'FootballbetBundle::layout_admin.html.twig' %}
+{% block javascripts %}
+{{ parent() }}
+    <script type="text/javascript">
+
+            var seleccionados = new Array();
+            var trabajando = false;
+            $(function(){
+
+         $("#football_footballbetbundle_grupo_buscar").keyup(function(event){
+             var valor = $("#football_footballbetbundle_grupo_buscar").val();
+             try{
+             valor = valor.replace(new RegExp('([^a-záéíóú0-9])','gi'),'\\$1');
+             var re = new RegExp(valor,'ig');
+             }catch (e)
+             {
+             console.log(e.message);
+             return e.message;
+             }
+             if(!trabajando){
+             trabajando = true;
+
+             var noResultados = true;
+             $("#football_footballbetbundle_grupo_users #noResultadosOption").remove();
+             $('#football_footballbetbundle_grupo_users option').each(function(){
+             var elemento = $(this);
+             var texto = elemento.html();
+             var pos = texto.search(re);
+
+             if(pos == -1){
+             elemento.hide();
+             }else{
+             elemento.show();
+             noResultados = false;
+             }
+             });
+             if(noResultados){
+             $("#football_footballbetbundle_grupo_users").append('<option id="noResultadosOption" value="">No se encontraron resultados.</option>');
+             }
+             trabajando = false;
+             }
+         });
+
+         $('#football_footballbetbundle_grupo_users option').click(clickOptionHandler);
+
+         });
+         function clickOptionHandler(){
+
+         var valorClick = $(this).attr('value');
+
+         var estaSeleccionado = seleccionados.indexOf(valorClick);
+
+         if(estaSeleccionado == -1)
+         {
+         seleccionados.push(valorClick);
+         $(this).attr('style','color:blue;');
+         console.log("Selecionado: "+valorClick);
+         }else{
+         seleccionados = transpasarArray(estaSeleccionado);
+         $(this).removeAttr('style');
+
+         }
+         $(this).attr('selected',false);
+         //$('#football_footballbetbundle_grupo_users option').show();
+
+         }
+
+         function transpasarArray(index){
+
+         var resultado = new Array();
+         for(var i=0; i < seleccionados.length ; i++)
+         {
+         if(i!=index)
+         resultado.push(seleccionados[i]);
+         }
+         return resultado;
+         }
+
+         function actualizar(){
+          $('#football_footballbetbundle_grupo_users').val(seleccionados);
+         }
+
+    </script>
+{% endblock %}
+{% block content -%}
+<div class="page-content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="portlet">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <h3>Editar Grupo</h3>
+                    </div>
+                </div>
+                <div class="portlet-body form">
+                    <div class="container">
+                        <form {{ form_enctype(edit_form) }} action="{{ path("grupo_update",{'id':entity.id}) }}" method="post" onsubmit="return actualizar();">
+                        {{ form_row(edit_form.nombre) }}
+                        {{ form_row(edit_form.tipo)  }}
+                            <div>
+                                <label>Buscar Usuarios</label>
+                                <input type="text" class="form-control input-sm form-group" id="football_footballbetbundle_grupo_buscar">
+
+                            </div>
+                        {{ form_row(edit_form.users)  }}
+
+                        {{ form(edit_form) }}
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-actions">
+        <div  class="form-inline">
+            <div class="form-group">
+                <a href="{{ path('grupo') }}" class="btn btn-link">
+                    <i class="icon-list"></i> Volver al listado
+                </a>
+            </div>
+            <div class="form-group">{{ form(delete_form) }}</div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

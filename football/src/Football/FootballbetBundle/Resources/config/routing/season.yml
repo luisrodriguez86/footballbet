@@ -1,0 +1,30 @@
+season:
+    pattern:  /
+    defaults: { _controller: "FootballbetBundle:Season:index" }
+
+season_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "FootballbetBundle:Season:show" }
+
+season_new:
+    pattern:  /new
+    defaults: { _controller: "FootballbetBundle:Season:new" }
+
+season_create:
+    pattern:  /create
+    defaults: { _controller: "FootballbetBundle:Season:create" }
+    requirements: { _method: post }
+
+season_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "FootballbetBundle:Season:edit" }
+
+season_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "FootballbetBundle:Season:update" }
+    requirements: { _method: post|put }
+
+season_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "FootballbetBundle:Season:delete" }
+    requirements: { _method: post|delete }

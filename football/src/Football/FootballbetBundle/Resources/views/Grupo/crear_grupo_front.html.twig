@@ -1,0 +1,32 @@
+<div class="col-md-12">
+    <div class="portlet">
+        <div class="portlet-title">
+            <div class="caption">
+                <h3 style="padding-left: 40px"> Nuevo Grupo</h3>
+            </div>
+            <div class="tools">
+                <a class="collapse" href=""></a>
+                <a class="config" data-toggle="modal" href="#portlet-config"></a>
+                <a class="reload" href=""></a>
+                <a class="remove" href=""></a>
+            </div>
+        </div>
+        <div class="portlet-body form">
+            <div class="container">
+                <form action="{{ path('crear_grupo_frontend') }}" method="post">
+                {#{{ form(form_grupo) }}#}
+                {{ form_row(form_grupo.nombre) }}
+                {{ form_row(form_grupo.league) }}
+
+                {{ form_rest(form_grupo) }}
+                </form>
+            </div>
+
+        </div>
+    </div>
+    {#<div class="form-actions">
+        <a href="{{ path('grupo') }}" class="form-group btn btn-link">
+            <i class="icon-list"></i> Volver al listado
+        </a>
+    </div>#}
+</div>
